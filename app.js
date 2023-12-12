@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import session from "express-session";
 import userRoutes from "./users/routes.js";
+import gameRoutes from "./game_data/routes.js";
 import Welcome from "./welcome.js";
 
 mongoose.connect("mongodb://127.0.0.1:27017/country")
@@ -36,5 +37,5 @@ app.use(express.json());
 
 Welcome(app);
 userRoutes(app);
-
+gameRoutes(app);
 app.listen(process.env.PORT || 4000);
