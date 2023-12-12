@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import session from "express-session";
 import userRoutes from "./users/routes.js";
+import gameRoutes from "./game_data/routes.js";
 import Welcome from "./welcome.js";
 import FollowsRoutes from "./follows/routes.js";
 
@@ -39,5 +40,5 @@ app.use(express.json());
 Welcome(app);
 userRoutes(app);
 FollowsRoutes(app);
-
+gameRoutes(app);
 app.listen(process.env.PORT || 4000);
