@@ -5,8 +5,10 @@ import cors from "cors";
 import session from "express-session";
 import userRoutes from "./users/routes.js";
 import Welcome from "./welcome.js";
+import FollowsRoutes from "./follows/routes.js";
 
-mongoose.connect("mongodb://127.0.0.1:27017/country")
+const CONNECTION_STRING = process.env.DB_CONFIG_STRING;
+mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 
@@ -36,5 +38,6 @@ app.use(express.json());
 
 Welcome(app);
 userRoutes(app);
+FollowsRoutes(app);
 
 app.listen(process.env.PORT || 4000);
