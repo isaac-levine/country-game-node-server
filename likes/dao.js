@@ -1,18 +1,22 @@
 import model from "./model.js";
 
 export const findAllLikes = () => model.find();
-export const createUserLikesCountry = (user, countryCode) =>
-  model.create({ user: user, countryCode: countryCode, haveTraveledTo: false, onBucketList: false });
-export const findCountriesUserLikes = (userId) => model.find({ user: userId });
+export const createUserLikesCountry = (userId, countryCode) =>
+  model.create({ userId: userId, countryCode: countryCode, haveTraveledTo: false, onBucketList: false });
+export const findCountriesUserLikes = (userId) => model.find({ userId: userId });
 export const findUsersWhoLikeCountry = (countryCode) =>
   model.find({ countryCode: countryCode });
-export const UpdateUserLikesCountry = (user, countryCode, haveTraveledTo, onBucketList) =>
-  model.updateOne({ user: user, countryCode: countryCode }, { haveTraveledTo: haveTraveledTo, onBucketList: onBucketList });
-export const userLikesCountry = (user, countryCode) =>
-  model.find({ user: user, countryCode: countryCode });
-export const countriesUserHasTraveledTo = (user) =>
-  model.find({ user: user, haveTraveledTo: true });
-export const countriesUserHasOnBucketList = (user) =>
-  model.find({ user: user, onBucketList: true });
-export const deleteLike = (user, countryCode) =>
-  model.deleteOne({ user: user, countryCode: countryCode });
+export const UpdateUserLikesCountry = (userId, countryCode, haveTraveledTo, onBucketList) =>
+  model.updateOne({ userId: userId, countryCode: countryCode,  haveTraveledTo: haveTraveledTo, onBucketList: onBucketList });
+export const userLikesCountry = (userId, countryCode) =>
+  model.find({ userId: userId, countryCode: countryCode });
+export const countriesUserHasTraveledTo = (userId) =>
+  model.find({ userId: user, haveTraveledTo: true });
+export const countriesUserHasOnBucketList = (userId) =>
+  model.find({ userId: userId, onBucketList: true });
+export const deleteLike = (userId, countryCode) =>
+  model.deleteOne({ userId: userId, countryCode: countryCode });
+export const getBucketListByCountry = (countryCode) =>
+  model.find({ countryCode: countryCode, onBucketList: true });
+export const getTraveledToByCountry = (countryCode) =>
+  model.find({ countryCode: countryCode, haveTraveledTo: true });
