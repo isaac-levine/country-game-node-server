@@ -2,29 +2,44 @@ import * as dao from "./dao.js";
 
 function FollowsRoutes(app) {
   const findAllFollows = async (req, res) => {
-    console.log("findAllFollows");
     const follows = await dao.findAllFollows();
-    res.send(follows);
+    if (follows) {
+      res.send(follows);
+    } else {
+      res.status(404).send({ message: "No follows found" });
+    }
   };
+  
   const createUserFollowsUser = async (req, res) => {
     const { followerId, followedId } = req.params;
     const follow = await dao.createUserFollowsUser(followerId, followedId);
     res.send(follow);
   };
+
   const deleteUserFollowsUser = async (req, res) => {
     const { followerId, followedId } = req.params;
     const status = await dao.deleteUserFollowsUser(followerId, followedId);
     res.send(status);
   };
+
   const findUsersFollowedByUser = async (req, res) => {
     const { userId } = req.params;
     const following = await dao.findUsersFollowedByUser(userId);
-    res.send(following);
+    if (following) {
+      res.send(following);
+    } else {
+      res.status(404).send({ message: "No users found" });
+    }
   };
+  
   const findUsersFollowingUser = async (req, res) => {
     const { userId } = req.params;
     const followers = await dao.findUsersFollowingUser(userId);
-    res.send(followers);
+    if (followers) {
+      res.send(followers);
+    } else {
+      res.status(404).send({ message: "No users found" });
+    }
   };
 
   app.get("/api/follows", findAllFollows);
