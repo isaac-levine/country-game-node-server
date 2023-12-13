@@ -6,6 +6,13 @@ function gameRoutes(app) {
         res.json(scores);
     };
     app.get("/api/game_data", findAllGameScores);
+    const findAllGamePlayers = async (req, res) => {
+        const scores = await dao.findAllGameScores();
+        const users = scores.map(score => score.username);
+        const uniqueUsers = [...new Set(users)];
+        res.json(uniqueUsers);
+    }
+    app.get("/api/game_data/users", findAllGamePlayers);
     const createGameScore = async (req, res) => {
         const createdScore = await dao.createScore(req.body);
         res.json(createdScore);
@@ -27,16 +34,16 @@ function gameRoutes(app) {
     };
     app.get("/api/game_data/game/:gameId", findGameScoresByGameId);
     const findAverageGameScoreByUserIdAndGameId = async (req, res) => { 
-        const scores = await dao.findGameScoresByUserIdAndGameId(req.params.username, req.params.gameId);
-        console.log(req.params.usersame);g
+        const scores = await dao.findGameScoresByUsernameAndGameId(req.params.username, req.params.gameId);
+        console.log(req.params.username);
         if (scores.length === 0) {
             res.json(0);
             return;
         }
-        const total = scores.reduce((acc, score) => acc + score.pts, 0);
-        const average = total / scores.length;
+        const total = scores.reduce((acc, score) => acc + parseInt(score.pts, 10), 0);
+        const average = parseInt((total / scores.length).toFixed(0), 10);
         res.json(average);
     }
-    app.get("/api/game_data/user/:userId/game/:gameId", findAverageGameScoreByUserIdAndGameId);
+    app.get("/api/game_data/user/:username/game/:gameId", findAverageGameScoreByUserIdAndGameId);
 }
 export default gameRoutes;

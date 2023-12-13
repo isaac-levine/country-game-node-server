@@ -6,4 +6,4 @@ export const createScore = (score) => model.create(score); // Don't allow mutati
 export const deleteOne = (id) => model.deleteOne({ _id: id });
 export const findGameScoresByUserId = (userId) => model.find({ userId: userId });
 export const findGameScoresByGameId = (gameId) => model.find({ gameId: gameId });
-export const findGameScoresByUserIdAndGameId = (userId, gameId) => model.find({ userId: userId, gameId: gameId });
+export const findGameScoresByUsernameAndGameId = (username, gameId) => model.find({ username: username, gameId: gameId });

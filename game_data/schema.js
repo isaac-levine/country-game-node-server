@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 const Schema = new mongoose.Schema({
-    userId: { type: String, required: false },
     username: { type: String, required: true},
     gameId: { type: String, required: true },
     pts: { type: String, required: true },
