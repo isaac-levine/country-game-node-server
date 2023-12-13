@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 const Schema = new mongoose.Schema({
-    userId: { type: String, required: true },
-    username: { type: String, required: true, username: true },
+    userId: { type: String, required: false },
+    username: { type: String, required: true},
     gameId: { type: String, required: true },
-    score: { type: Number, required: true },
+    pts: { type: String, required: true },
 },
     { collection: "game_data" }
 );

@@ -8,8 +8,10 @@ import gameRoutes from "./game_data/routes.js";
 import Welcome from "./welcome.js";
 import FollowsRoutes from "./follows/routes.js";
 
-const CONNECTION_STRING = process.env.DB_CONFIG_STRING;
-mongoose.connect(CONNECTION_STRING);
+//const CONNECTION_STRING = process.env.DB_CONFIG_STRING;
+//mongoose.connect(CONNECTION_STRING);
+//mongoose.connect("mongodb://127.0.0.1:27017/country")
+mongoose.connect("mongodb+srv://kevinevasquez5:ltM6J5JU9g7XMDty@cluster0.gpmfas1.mongodb.net/country?retryWrites=true&w=majority");
 
 const app = express();
 
