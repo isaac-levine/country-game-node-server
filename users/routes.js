@@ -47,7 +47,12 @@ function userRoutes(app) {
     app.get("/api/users/:userId", findUserById);
 
     const account = async (req, res) => {
-        res.json(req.session['currentUser']);
+        const currentUser = req.session['currentUser'];
+        if (currentUser) {
+            res.json(currentUser);
+        } else {
+            res.status(400).json({ message: "Not logged in" });
+        }
     };
     app.post("/api/users/profile", account);
 

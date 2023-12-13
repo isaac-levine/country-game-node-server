@@ -10,6 +10,8 @@ const Schema = new mongoose.Schema({
         default: 'STANDARD',
     },
     bio: String,
+    origins: String,
+    wants: String,
 },
     { collection: "users" }
 );
