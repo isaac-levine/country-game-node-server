@@ -33,9 +33,13 @@ function gameRoutes(app) {
         res.json(scores);
     };
     app.get("/api/game_data/game/:gameId", findGameScoresByGameId);
+    const findGameScoresByUsernameAndGameId = async (req, res) => {
+        const scores = await dao.findGameScoresByUsernameAndGameId(req.params.username, req.params.gameId);
+        res.json(scores);
+    }
+    app.get("/api/game_data/user/:username/game/:gameId", findGameScoresByUsernameAndGameId);
     const findAverageGameScoreByUserIdAndGameId = async (req, res) => { 
         const scores = await dao.findGameScoresByUsernameAndGameId(req.params.username, req.params.gameId);
-        console.log(req.params.username);
         if (scores.length === 0) {
             res.json(0);
             return;
@@ -44,6 +48,6 @@ function gameRoutes(app) {
         const average = parseInt((total / scores.length).toFixed(0), 10);
         res.json(average);
     }
-    app.get("/api/game_data/user/:username/game/:gameId", findAverageGameScoreByUserIdAndGameId);
+    app.get("/api/game_data/user/:username/game/:gameId/average", findAverageGameScoreByUserIdAndGameId);
 }
 export default gameRoutes;
