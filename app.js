@@ -7,6 +7,7 @@ import userRoutes from "./users/routes.js";
 import gameRoutes from "./game_data/routes.js";
 import Welcome from "./welcome.js";
 import FollowsRoutes from "./follows/routes.js";
+import LikesRoutes from "./likes/routes.js";
 
 //const CONNECTION_STRING = process.env.DB_CONFIG_STRING;
 //mongoose.connect(CONNECTION_STRING);
@@ -43,4 +44,5 @@ Welcome(app);
 userRoutes(app);
 FollowsRoutes(app);
 gameRoutes(app);
+LikesRoutes(app);
 app.listen(process.env.PORT || 4000);
