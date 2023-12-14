@@ -1,5 +1,5 @@
 import * as dao from "./dao.js";
-import * as metaDataDao from "../country_metadata/dao.js";
+import * as userdao from "../users/dao.js";
 function LikesRoutes(app) {
   const findAllLikes = async (req, res) => {
     console.log("findAllLikes");
@@ -22,13 +22,30 @@ function LikesRoutes(app) {
     res.send(likes);
   };
   app.post("/api/likes/user/:userId/country/:countryCode/name/:countryName", createUserLikesCountry);
-  const findUsersWhoLikeCountry = async (req, res) => {
-    console.log("findUsersWhoLikeCountry");
+  const findUsersWhoHaveTraveledToCountry = async (req, res) => {
+    console.log("findUsersWhoHaveTraveledToCountry");
     const countryCode = req.params.countryCode;
-    const likes = await dao.findUsersWhoLikeCountry(countryCode);
-    res.send(likes);
+    const likes = await dao.findUsersWhoHaveTraveledToCountry(countryCode);
+    const userNames = [];
+    for (let i = 0; i < likes.length; i++) {
+      const user = await userdao.findUserById(likes[i].userId);
+      userNames.push({"name" : user.username, "userId" : user._id});
+    }
+    res.send(userNames);
   };
-  app.get("/api/likes/country/:countryCode", findUsersWhoLikeCountry);
+  app.get("/api/likes/traveledTo/country/:countryCode", findUsersWhoHaveTraveledToCountry);
+  const findUsersWhoHaveCountryOnBucketList = async (req, res) => {
+    console.log("findUsersWhoHaveCountryOnBucketList");
+    const countryCode = req.params.countryCode;
+    const likes = await dao.findUsersWhoHaveCountryOnBucketList(countryCode);
+    const userNames = [];
+    for (let i = 0; i < likes.length; i++) {
+      const user = await userdao.findUserById(likes[i].userId);
+      userNames.push({"name" : user.username, "userId" : user._id});
+    }
+    res.send(userNames);
+  };
+  app.get("/api/likes/bucketList/country/:countryCode", findUsersWhoHaveCountryOnBucketList);
   const findCountriesUserLikes = async (req, res) => {
     console.log("findCountriesUserLikes");
     const userId = req.params.userId;

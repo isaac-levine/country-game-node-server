@@ -7,4 +7,4 @@ export const deleteOne = (id) => model.deleteOne({ _id: id });
 export const findGameScoresByUserId = (userId) => model.find({ userId: userId });
 export const findGameScoresByGameId = (gameId) => model.find({ gameId: gameId });
 export const findGameScoresByUsernameAndGameId = (username, gameId) => model.find({ username: username, gameId: gameId });
-export const numScoresByUserId = (userId) => model.countDocuments({ userId: userId });
+export const numScoresByUserId = (username) => model.countDocuments({ username: username });
