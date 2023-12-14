@@ -59,10 +59,9 @@ function userRoutes(app) {
     const updateUser = async (req, res) => {
         const { userId } = req.params;
         const status = await dao.updateUser(userId, req.body);
-        const currentUser = await dao.findUserById(userId);
-        req.session['currentUser'] = currentUser;
         res.json(status);
-    };
+      };
+    
     app.put("/api/users/:userId", updateUser);
 
     const findAllUsers = async (req, res) => {
@@ -71,7 +70,13 @@ function userRoutes(app) {
     };
     app.get("/api/users", findAllUsers);
 
+    const deleteUser = async (req, res) => {
+        const status = await dao.deleteUser(req.params.userId);
+        res.json(status);
+    };
+    app.delete("/api/users/:userId", deleteUser);
 }
+
 
 
 export default userRoutes;
