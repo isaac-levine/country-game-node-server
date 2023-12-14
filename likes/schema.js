@@ -5,6 +5,7 @@ const schema = new mongoose.Schema(
     countryCode: {type : String, required : true},
     haveTraveledTo: {type : Boolean, required : true},
     onBucketList: {type : Boolean, required : true},
+    countryName: {type : String, required : true}
   },
   { collection: "likes" }
 );

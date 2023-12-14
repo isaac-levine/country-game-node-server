@@ -49,5 +49,10 @@ function gameRoutes(app) {
         res.json(average);
     }
     app.get("/api/game_data/user/:username/game/:gameId/average", findAverageGameScoreByUserIdAndGameId);
+    const findNumGamesPlayedByUserId = async (req, res) => {
+        const games = await dao.numScoresByUserId(req.params.userId);
+        res.json(games);
+    }
+    app.get("/api/game_data/user/:username/num_games", findNumGamesPlayedByUserId);
 }
 export default gameRoutes;
