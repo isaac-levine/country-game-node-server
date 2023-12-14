@@ -6,6 +6,10 @@ export const createUserLikesCountry = (userId, countryCode, countryName) =>
 export const findCountriesUserLikes = (userId) => model.find({ userId: userId });
 export const findUsersWhoLikeCountry = (countryCode) =>
   model.find({ countryCode: countryCode });
+export const findUsersWhoHaveTraveledToCountry = (countryCode) =>
+  model.find({ countryCode: countryCode, haveTraveledTo: true });
+export const findUsersWhoHaveCountryOnBucketList = (countryCode) =>
+  model.find({ countryCode: countryCode, onBucketList: true });
 export const UpdateUserLikesCountry = (userId, countryCode, haveTraveledTo, onBucketList) =>
 model.updateOne(
   { userId: userId, countryCode: countryCode },
