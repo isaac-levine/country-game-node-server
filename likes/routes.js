@@ -9,50 +9,75 @@ function LikesRoutes(app) {
   app.get("/api/likes", findAllLikes);
   const createUserLikesCountry = async (req, res) => {
     console.log("createUserLikesCountry");
-    const user = req.session.user;
+    const userId = req.params.userId;
     const countryCode = req.params.countryCode;
-    const likes = await dao.createUserLikesCountry(user, countryCode);
+    const likes = await dao.createUserLikesCountry(userId, countryCode);
     res.send(likes);
   };
-  app.post("/api/likes/:countryCode", createUserLikesCountry);
+  app.post("/api/likes/user/:userId/country/:countryCode", createUserLikesCountry);
   const findUsersWhoLikeCountry = async (req, res) => {
     console.log("findUsersWhoLikeCountry");
     const countryCode = req.params.countryCode;
     const likes = await dao.findUsersWhoLikeCountry(countryCode);
     res.send(likes);
   };
-  app.get("/api/likes/:countryCode", findUsersWhoLikeCountry);
+  app.get("/api/likes/country/:countryCode", findUsersWhoLikeCountry);
   const findCountriesUserLikes = async (req, res) => {
     console.log("findCountriesUserLikes");
-    const user = req.session.user;
-    const likes = await dao.findCountriesUserLikes(user);
+    const userId = req.params.userId;
+    const likes = await dao.findCountriesUserLikes(userId);
     res.send(likes);
   };
-  app.get("/api/likes/:user", findCountriesUserLikes);
+  app.get("/api/likes/user/:userId", findCountriesUserLikes);
+  const fetchUserLikesCountry = async (req, res) => {
+    console.log("fetchUserLikesCountry");
+    const userId = req.params.userId;
+    const countryCode = req.params.countryCode;
+    const likes = await dao.userLikesCountry(userId, countryCode);
+    res.send(likes);
+  }
+  app.get("/api/likes/user/:userId/country/:countryCode", fetchUserLikesCountry);
   const UpdateUserLikesCountry = async (req, res) => {
     console.log("UpdateUserLikesCountry");
-    const user = req.session.user;
+    const userId = req.params.userId;
     const countryCode = req.params.countryCode;
-    const haveTraveledTo = req.body.haveTraveledTo;
-    const onBucketList = req.body.onBucketList;
-    const likes = await dao.UpdateUserLikesCountry(user, countryCode, haveTraveledTo, onBucketList);
+    const haveTraveledTo = req.params.haveTraveledTo;
+    const onBucketList = req.params.onBucketList;
+    console.log(haveTraveledTo);
+    const likes = await dao.UpdateUserLikesCountry(userId, countryCode, haveTraveledTo, onBucketList);
+    console.log(likes);
     res.send(likes);
   };
-  app.put("/api/likes/:countryCode", UpdateUserLikesCountry);
+  app.put("/api/likes/user/:userId/country/:countryCode/:haveTraveledTo/:onBucketList", UpdateUserLikesCountry);
   const countriesUserHasTraveledTo = async (req, res) => {
     console.log("countriesUserHasTraveledTo");
-    const user = req.session.user;
-    const likes = await dao.countriesUserHasTraveledTo(user);
+    const userId = req.session.userId;
+    const likes = await dao.countriesUserHasTraveledTo(userId);
     res.send(likes);
   }
-  app.get("/api/likes/traveled/:user", countriesUserHasTraveledTo);
+  app.get("/api/likes/traveled/user/:userId", countriesUserHasTraveledTo);
   const countriesUserHasOnBucketList = async (req, res) => {
     console.log("countriesUserHasOnBucketList");
-    const user = req.session.user;
-    const likes = await dao.countriesUserHasOnBucketList(user);
+    const userId = req.session.userId;
+    const likes = await dao.countriesUserHasOnBucketList(userId);
     res.send(likes);
   }
-  app.get("/api/likes/bucketlist/:user", countriesUserHasOnBucketList);
+  app.get("/api/likes/bucketlist/user/:userId", countriesUserHasOnBucketList);
+  const getTraveledToByCountry = async (req, res) => {
+    console.log("getTraveledToByCountry");
+    const countryCode = req.params.countryCode;
+    console.log(countryCode);
+    const likes = await dao.getTraveledToByCountry(countryCode);
+    res.send(likes);
+  }
+  app.get("/api/likes/traveled/country/:countryCode", getTraveledToByCountry);
+  const getBucketListByCountry = async (req, res) => {
+    console.log("getBucketListByCountry");
+    const countryCode = req.params.countryCode;
+    const likes = await dao.getBucketListByCountry(countryCode);
+    res.send(likes);
+  }
+  app.get("/api/likes/bucketlist/country/:countryCode", getBucketListByCountry);
 }
 
 export default LikesRoutes;
