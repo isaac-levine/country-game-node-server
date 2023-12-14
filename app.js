@@ -10,10 +10,8 @@ import FollowsRoutes from "./follows/routes.js";
 import LikesRoutes from "./likes/routes.js";
 import CountryRoutes from "./country_metadata/routes.js";
 
-//const CONNECTION_STRING = process.env.DB_CONFIG_STRING;
-//mongoose.connect(CONNECTION_STRING);
-//mongoose.connect("mongodb://127.0.0.1:27017/country")
-mongoose.connect("mongodb+srv://kevinevasquez5:ltM6J5JU9g7XMDty@cluster0.gpmfas1.mongodb.net/country?retryWrites=true&w=majority");
+const CONNECTION_STRING = process.env.DB_CONFIG_STRING;
+mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 
